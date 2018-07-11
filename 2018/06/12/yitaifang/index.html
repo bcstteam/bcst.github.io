@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>以太坊最新骗局，蜜罐合约让你有进无出！ | Blockchain Security</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="前言近日我们区块链威胁情报平台发现一些疑似有问题的合约，经过我们的研究人员核实后，确认属于蜜罐合约。我们先介绍下，什么叫蜜罐？在安全界，蜜罐是一种软件应用系统，用来当做入侵诱饵，引诱黑客前来攻击。攻击者入侵后，通过监测与分析，就可以知道攻击者是如何入侵的，以便随时了解针对组织服务器发动的最新攻击和漏洞。还可以通过窃听黑客之间的联系，收集黑客所用的种种工具，并且掌握他们的社交网络。">
+<meta name="keywords" content="蜜罐合约">
+<meta property="og:type" content="article">
+<meta property="og:title" content="以太坊最新骗局，蜜罐合约让你有进无出！">
+<meta property="og:url" content="http://www.bcst.com/2018/06/12/yitaifang/index.html">
+<meta property="og:site_name" content="Blockchain Security">
+<meta property="og:description" content="前言近日我们区块链威胁情报平台发现一些疑似有问题的合约，经过我们的研究人员核实后，确认属于蜜罐合约。我们先介绍下，什么叫蜜罐？在安全界，蜜罐是一种软件应用系统，用来当做入侵诱饵，引诱黑客前来攻击。攻击者入侵后，通过监测与分析，就可以知道攻击者是如何入侵的，以便随时了解针对组织服务器发动的最新攻击和漏洞。还可以通过窃听黑客之间的联系，收集黑客所用的种种工具，并且掌握他们的社交网络。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.bcst.com/img/201801161.jpg">
+<meta property="og:updated_time" content="2018-06-21T02:46:20.433Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="以太坊最新骗局，蜜罐合约让你有进无出！">
+<meta name="twitter:description" content="前言近日我们区块链威胁情报平台发现一些疑似有问题的合约，经过我们的研究人员核实后，确认属于蜜罐合约。我们先介绍下，什么叫蜜罐？在安全界，蜜罐是一种软件应用系统，用来当做入侵诱饵，引诱黑客前来攻击。攻击者入侵后，通过监测与分析，就可以知道攻击者是如何入侵的，以便随时了解针对组织服务器发动的最新攻击和漏洞。还可以通过窃听黑客之间的联系，收集黑客所用的种种工具，并且掌握他们的社交网络。">
+<meta name="twitter:image" content="http://www.bcst.com/img/201801161.jpg">
+    
+
+    
+        <link rel="alternate" href="/" title="Blockchain Security" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome5/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/libs/font-awesome5/css/fa-brands.min.css">
+    <link rel="stylesheet" href="/libs/font-awesome5/css/fa-solid.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Blockchain Security</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/index.html">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Blog</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fas fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fas fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/index.html">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Blog</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+            
+            <section id="main"><article id="post-yitaifang" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            
+	
+		<img src="/img/201801161.jpg" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            以太坊最新骗局，蜜罐合约让你有进无出！
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fas fa-calendar-alt"></i>
+        <a href="/2018/06/12/yitaifang/">
+            <time datetime="2018-06-12T07:00:00.000Z" itemprop="datePublished">2018-06-12</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fas fa-folder"></i>
+        <a class="article-category-link" href="/categories/蜜罐合约/">蜜罐合约</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/蜜罐合约/">蜜罐合约</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">Catalogue</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#漏洞分析"><span class="toc-number">2.</span> <span class="toc-text">漏洞分析</span></a></li></ol>
+                </div>
+            
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>近日我们区块链威胁情报平台发现一些疑似有问题的合约，经过我们的研究人员核实后，确认属于蜜罐合约。<br>我们先介绍下，什么叫蜜罐？在安全界，蜜罐是一种软件应用系统，用来当做入侵诱饵，引诱黑客前来攻击。攻击者入侵后，通过监测与分析，就可以知道攻击者是如何入侵的，以便随时了解针对组织服务器发动的最新攻击和漏洞。还可以通过窃听黑客之间的联系，收集黑客所用的种种工具，并且掌握他们的社交网络。<a id="more"></a><br>这原本是一种主动防御性措施，然而在我们通过实际测试和分析，表明有人正在利用蜜罐的方式，进行代币的钓鱼攻击，诱导用户转账至蜜罐，完成虚拟币的窃取。<br><img src="/img/201801161.jpg" alt="img"></p>
+<h2 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h2><p>从我们的系统扫描出的这些智能合约当中，分析发现，这些合约的功能看起来像个存钱罐。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^<span class="number">0.4</span><span class="number">.20</span>;</span><br><span class="line">contract GIFT_FOR_FRIENDS</span><br><span class="line">&#123;</span><br><span class="line">    address sender;</span><br><span class="line">    address reciver;</span><br><span class="line">    bool closed = false;</span><br><span class="line">    uint unlockTime;</span><br><span class="line">    function PutGift(address _reciver)</span><br><span class="line">    public</span><br><span class="line">    payable</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>( (!closed&amp;&amp;(msg.value &gt; <span class="number">1</span> ether)) || sender==<span class="number">0x00</span> )</span><br><span class="line">        &#123;</span><br><span class="line">            sender = msg.sender;</span><br><span class="line">            reciver = _reciver;</span><br><span class="line">            unlockTime = now;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    function SetGiftTime(uint _unixTime)</span><br><span class="line">    public</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(msg.sender==sender)</span><br><span class="line">        &#123;</span><br><span class="line">            unlockTime = _unixTime;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    function GetGift()</span><br><span class="line">    public</span><br><span class="line">    payable</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(reciver==msg.sender&amp;&amp;now&gt;unlockTime)</span><br><span class="line">        &#123;</span><br><span class="line">            msg.sender.transfer(this.balance);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    function CloseGift()</span><br><span class="line">    public</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(sender == msg.sender &amp;&amp; reciver != <span class="number">0x0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">           closed=true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    function() public payable&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>从上面的源码可以看出，这是这个指定账号存进一个以上的ETH，然后那个账号可以把当前合约的全部ETH提出来。看似都没问题。而且这些蜜罐合约创建后会往里面存入部分ETH。他们用来干嘛呢？<br>当我们的智能合约从业人员看到这种合约代码的时候，应该会有下面三种情形：</p>
+<ul>
+<li><p>第一种、心里最开始肯定很得意，充完之后还能把里面的全部提出来，搞吧那就，充完后发现币并不能提出，完蛋，被骗了。</p>
+</li>
+<li><p>第二种、心里有点激动，但是为了安全起见，还是在测试网络跑一遍代码，发现可以提出来，结果在主网充了之后，发现提不出来。完蛋，被骗了。</p>
+</li>
+<li>第三种、心里想，肯定没这种好事，一定是陷阱。</li>
+</ul>
+<p>看完代码后的有符合以上三种情况的同学，请主动站出来哈。哈哈哈ヾﾉ≧∀≦)o。开个小玩笑！<br>通过我们对合约创建者的地址分析后，这种合约不止创建过一次，而且有不少人上当了，通过这种方式骗到的ETH个数已经有几十个了，按照目前市值大约十几万。我们相信，不止它这么一个人在干这种事。我们认为这种蜜罐合约我们必须立刻公布出来，避免让更多的人上当。</p>
+<p>这是昨天发现的那个蜜罐骗到的ETH交易记录截图：<br><img src="/img/201801162.jpg" alt="img"></p>
+<p>随后我们的区块链威胁情报平台扫描到了以下丧心病狂的“诈骗犯”蜜罐，强烈谴责：<br><img src="/img/201801163.jpg" alt="img"></p>
+<p>后面我们会针对蜜罐合约的执行过程进行更深入的分析，敬请关注。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://www.bcst.com/2018/06/12/yitaifang/" data-id="cjin2brbk000835pvyanhictx" class="article-share-link"><i class="fas fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fab fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fab fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fab fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fab fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://www.bcst.com/2018/06/12/yitaifang/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://www.bcst.com/2018/06/12/yitaifang/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2018/06/13/tokenguiling/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    权限控制不当造成的token归零风险分析
+                
+            </div>
+        </a>
+    
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+        <section id="comments">
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</section>
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">recent</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/06/15/qukuailheyue/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/img/201801171.jpg)" alt="BCST区块链安全研究案例—某合约低危漏洞深度分析" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/合约漏洞/">合约漏洞</a></p>
+                            <p class="item-title"><a href="/2018/06/15/qukuailheyue/" class="title">BCST区块链安全研究案例—某合约低危漏洞深度分析</a></p>
+                            <p class="item-date"><time datetime="2018-06-15T07:00:00.000Z" itemprop="datePublished">2018-06-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/06/13/tokenguiling/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/img/201801151.png)" alt="权限控制不当造成的token归零风险分析" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/智能合约/">智能合约</a></p>
+                            <p class="item-title"><a href="/2018/06/13/tokenguiling/" class="title">权限控制不当造成的token归零风险分析</a></p>
+                            <p class="item-date"><time datetime="2018-06-13T07:00:00.000Z" itemprop="datePublished">2018-06-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/06/12/yitaifang/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/img/201801161.jpg)" alt="以太坊最新骗局，蜜罐合约让你有进无出！" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/蜜罐合约/">蜜罐合约</a></p>
+                            <p class="item-title"><a href="/2018/06/12/yitaifang/" class="title">以太坊最新骗局，蜜罐合约让你有进无出！</a></p>
+                            <p class="item-date"><time datetime="2018-06-12T07:00:00.000Z" itemprop="datePublished">2018-06-12</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/合约漏洞/">合约漏洞</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约/">智能合约</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蜜罐合约/">蜜罐合约</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/合约漏洞/">合约漏洞</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蜜罐合约/">蜜罐合约</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/合约漏洞/" style="font-size: 10px;">合约漏洞</a> <a href="/tags/智能合约/" style="font-size: 10px;">智能合约</a> <a href="/tags/蜜罐合约/" style="font-size: 10px;">蜜罐合约</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fas fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 BCST<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://www.bcst.com/2018/06/12/yitaifang/';
+        
+        this.page.identifier = 'yitaifang';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'hexo-theme-icaru' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>

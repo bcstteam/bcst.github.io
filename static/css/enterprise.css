@@ -1,0 +1,204 @@
+
+#enterprise{
+  
+}
+#enterprise #welcome-hero .row {
+    background: none;
+    padding: 0;
+}
+
+#enterprise .welcome-title {
+    position: absolute;
+    text-align:center;
+    top: 35%;
+}
+
+#enterprise .welcome-title h1,
+#enterprise #welcome-hero .span12 p.lead {
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+#enterprise #welcome-hero .welcome-title h1 {
+    padding: 10px;
+}
+
+#enterprise .navbar {
+    background-color: rgba(0, 0, 0, 0.95);
+    border-bottom: 1px solid #1A1A1A;
+}
+
+#enterprise .navbar-inner {
+    background-image: none;
+}
+
+#enterprise .navbar .nav > li {
+    border-right: 1px solid #0e0e0e;
+}
+
+#enterprise .nav .account {
+    border-left: none;
+}
+
+#enterprise .thumbnail {
+    border-radius: 0;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.075);
+    font-family: 'RobotoDraft';
+    max-width: 300px;
+    padding: 0;
+    text-align: left;
+}
+
+#enterprise .thumbnail .caption {
+    padding: 10px 20px;
+}
+
+#enterprise .thumbnail h3 {
+    font-size: 22px;
+    font-weight: normal;
+    padding: 10px 0 20px 0;
+}
+
+#enterprise .thumbnail .caption > p:first-child {
+    min-height: 160px;
+    text-align: justify;
+}
+.futitle {
+    position: absolute;
+    z-index: 100000;
+    left: 40%;
+}
+.fuimg {
+    left: 10px;
+    position: absolute;
+    z-index: 100000;
+}
+.fuhead{
+    position: absolute;
+    right: auto;
+    z-index: 100000;
+    left: auto;
+    width: 100%;
+    text-align:center;
+}    
+.index-hero {
+	height: 200px;
+	position: absolute;
+	text-align: center;
+	display: block;
+	z-index: 100000;
+	top:40%;
+	left:32%;
+	box-sizing: border-box;
+}
+.index-hero .index-search-form {
+    border: 1px solid #47e83a;
+    border-radius: 2px;
+    height: 38px;
+    margin: 60px auto 0;
+    max-width: 540px;
+    padding-top: 2px;
+}
+.index-search-form .twitter-typeahead {
+    float: left;
+}
+.index-hero .twitter-typeahead {
+    vertical-align: middle;
+}
+.index-hero .form-control {
+    width: 430px;
+	 height: 28px;
+}
+.index-hero .form-control {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 center;
+    border: 0 none;
+    color: #fff;
+    float: left;
+}
+.form-control {
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    height: 34px;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+}
+.form-control:focus {
+    border-color: #66afe9;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+    outline: 0 none;
+}
+.form-control::-moz-placeholder {
+    color: #999;
+    opacity: 1;
+}
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #eee;
+    opacity: 1;
+}
+.form-control[disabled], fieldset[disabled] .form-control {
+    cursor: not-allowed;
+}
+pre {
+    background-color: #ddd;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    display: block;
+    font-size: 13px;
+    margin: 0 0 10px;
+    overflow-wrap: break-word;
+    padding: 9.5px;
+    word-break: break-all;
+}
+.tt-dropdown-menu {
+    background: #181818 none repeat scroll 0 0;
+    border: 1px solid #000;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    max-height: 500px;
+    overflow: hidden;
+    padding: 0;
+    text-align: left;
+    width: 100%;
+}
+.tt-dropdown-menu {
+    text-align: left;
+}
+.btn-group, .btn-group-vertical {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+.index-hero .btn-group {
+    width: 100px;
+}
+.btn {
+    -moz-user-select: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857;
+    margin-bottom: 0;
+    padding: 6px 12px;
+    text-align: center;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn.focus:active, .btn:active:focus, .btn:focus {
+    outline: thin dotted;
+    outline-offset: -2px;
+}
+.btn.focus, .btn:focus, .btn:hover {
+    color: #333;
+    text-decoration: none;
+}
+.btn.active, .btn:active {
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.125) inset;
+    outline: 0 none;
+}
+.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 0.65;
+}

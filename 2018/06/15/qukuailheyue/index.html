@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    
+    <title>BCST区块链安全研究案例—某合约低危漏洞深度分析 | Blockchain Security</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="前言今天分析一个轻微漏洞案例，案例的主角是ST与MC，大家应该对这两个项目不会陌生。由于之前出了漏洞，造成无限转币，导致项目方损失惨重。本文只做技术案例分享，切勿用于个人牟利等行为，对于智能合约，任何一行代码都应该且必须严谨，否则损失可能是难以估量的。">
+<meta name="keywords" content="合约漏洞">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BCST区块链安全研究案例—某合约低危漏洞深度分析">
+<meta property="og:url" content="http://www.bcst.com/2018/06/15/qukuailheyue/index.html">
+<meta property="og:site_name" content="Blockchain Security">
+<meta property="og:description" content="前言今天分析一个轻微漏洞案例，案例的主角是ST与MC，大家应该对这两个项目不会陌生。由于之前出了漏洞，造成无限转币，导致项目方损失惨重。本文只做技术案例分享，切勿用于个人牟利等行为，对于智能合约，任何一行代码都应该且必须严谨，否则损失可能是难以估量的。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.bcst.com/img/201801171.jpg">
+<meta property="og:updated_time" content="2018-06-21T02:45:42.329Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BCST区块链安全研究案例—某合约低危漏洞深度分析">
+<meta name="twitter:description" content="前言今天分析一个轻微漏洞案例，案例的主角是ST与MC，大家应该对这两个项目不会陌生。由于之前出了漏洞，造成无限转币，导致项目方损失惨重。本文只做技术案例分享，切勿用于个人牟利等行为，对于智能合约，任何一行代码都应该且必须严谨，否则损失可能是难以估量的。">
+<meta name="twitter:image" content="http://www.bcst.com/img/201801171.jpg">
+    
+
+    
+        <link rel="alternate" href="/" title="Blockchain Security" type="application/atom+xml" />
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome5/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/libs/font-awesome5/css/fa-brands.min.css">
+    <link rel="stylesheet" href="/libs/font-awesome5/css/fa-solid.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Blockchain Security</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/index.html">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Blog</a>
+                
+                    <a class="main-nav-link" href="/categories">Categories</a>
+                
+                    <a class="main-nav-link" href="/tags">Tags</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fas fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fas fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/index.html">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Blog</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">Categories</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">Tags</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+            
+            <section id="main"><article id="post-qukuailheyue" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+            
+	
+		<img src="/img/201801171.jpg" class="article-banner" />
+	
+
+
+
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            BCST区块链安全研究案例—某合约低危漏洞深度分析
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fas fa-calendar-alt"></i>
+        <a href="/2018/06/15/qukuailheyue/">
+            <time datetime="2018-06-15T07:00:00.000Z" itemprop="datePublished">2018-06-15</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fas fa-folder"></i>
+        <a class="article-category-link" href="/categories/合约漏洞/">合约漏洞</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/合约漏洞/">合约漏洞</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">Catalogue</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#案例代码"><span class="toc-number">2.</span> <span class="toc-text">案例代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-number">3.</span> <span class="toc-text">测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#详细流程"><span class="toc-number">3.1.</span> <span class="toc-text">详细流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+                </div>
+            
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今天分析一个轻微漏洞案例，案例的主角是S<em>T与M</em>C，大家应该对这两个项目不会陌生。由于之前出了漏洞，造成无限转币，导致项目方损失惨重。<br>本文只做技术案例分享，切勿用于个人牟利等行为，对于智能合约，任何一行代码都应该且必须严谨，否则损失可能是难以估量的。<a id="more"></a><br><img src="/img/201801171.jpg" alt="img"></p>
+<h2 id="案例代码"><a href="#案例代码" class="headerlink" title="案例代码"></a>案例代码</h2><p>先看下面的代码.：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function approveProxy(address _from, address _spender, uint256 _value,</span><br><span class="line">        uint8 _v,bytes32 _r, bytes32 _s) public returns (bool success) &#123;</span><br><span class="line"></span><br><span class="line">        uint256 nonce = nonces[_from];</span><br><span class="line">        bytes32 hash = keccak256(_from,_spender,_value,nonce,address(this));</span><br><span class="line">        <span class="keyword">if</span>(_from != ecrecover(hash,_v,_r,_s)) revert();</span><br><span class="line">        allowed[_from][_spender] = _value;</span><br><span class="line">        emit Approval(_from, _spender, _value);</span><br><span class="line">        nonces[_from] = nonce + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> true;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>这是一个代理转账函数，参数简单说明：</p>
+<ul>
+<li><p>_from—转账方</p>
+</li>
+<li><p>_spender—收款方</p>
+</li>
+<li><p>_value—转账金额</p>
+<p>如果你的签名为：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">signature = <span class="number">0x1a0744724beca14bfd7b5f838394a3e5c49c4872dbd1fbc29661ffd88bed14ad53e045268098d7934530e81c058d40b763381f8d5c75fd29b4300e64be75867401</span></span><br><span class="line"></span><br><span class="line"> _r = signature[<span class="number">0</span>:<span class="number">64</span>] = <span class="number">0x1a0744724beca14bfd7b5f838394a3e5c49c4872dbd1fbc29661ffd88bed14ad</span></span><br><span class="line"></span><br><span class="line"> _s = signature[<span class="number">64</span>:<span class="number">128</span>] = <span class="number">0x53e045268098d7934530e81c058d40b763381f8d5c75fd29b4300e64be758674</span></span><br><span class="line"></span><br><span class="line"> _v = signature[<span class="number">128</span>:<span class="number">130</span>] = <span class="number">0x01</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>keccak256是一个加密算法，内嵌的函数，可以直接调用。ecrecover是恢复签名公钥的函数，如果传的各个值正确，ecrecover恢复出的公钥等于应该等于_from所传地址。按正常流程来执行的话这个函数是没有问题的。但是，如果ecrecover里面传的参数不对，ecrecover就会返回0x0地址，而且我们检查了下合约，并没有禁止向0x0转账，所以理论上说，任何人都可以从0x0地址获得这个合约的token。</p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>这时候我们去以太坊区块链浏览器中查下0x0有没有他们的token，果不其然，里面有0.1个token，然后我们调用代理授权函数，并从0x0中将剩余的0.1个token成功的转到了我们的测试账号上。</p>
+<h3 id="详细流程"><a href="#详细流程" class="headerlink" title="详细流程"></a>详细流程</h3><ol>
+<li>执行approveProxy函数，授权成功。<br><img src="/img/201801172.jpg" alt="img"></li>
+<li>我们通过区块浏览器查看allowance 是否授权成功，看下面截图，成功授权，可以从0x0转走0.1个token。<br><img src="/img/201801171.png" alt="img"></li>
+<li>接着调用transferForm。<br><img src="/img/201801172.png" alt="img"></li>
+<li>转出成功！<br><img src="/img/201801173.png" alt="img"></li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>虽然这个属于轻微漏洞，但是如果有人往0x0转了对应合约的token,那么其他人还是能取出来，一般来说往0x0里面转token属于销毁，如果项目方哪天宣布要销毁部分token，往0x0转了大量token,然后被有心人给发现了，那就会造成大额的损失了。</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://www.bcst.com/2018/06/15/qukuailheyue/" data-id="cjin2brb6000435pvmvywtqxf" class="article-share-link"><i class="fas fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fab fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fab fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fab fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fab fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="http://www.bcst.com/2018/06/15/qukuailheyue/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="http://www.bcst.com/2018/06/15/qukuailheyue/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/06/13/tokenguiling/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">权限控制不当造成的token归零风险分析</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    
+        <section id="comments">
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</section>
+    
+
+</section>
+            
+                
+<aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">recent</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/06/15/qukuailheyue/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/img/201801171.jpg)" alt="BCST区块链安全研究案例—某合约低危漏洞深度分析" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/合约漏洞/">合约漏洞</a></p>
+                            <p class="item-title"><a href="/2018/06/15/qukuailheyue/" class="title">BCST区块链安全研究案例—某合约低危漏洞深度分析</a></p>
+                            <p class="item-date"><time datetime="2018-06-15T07:00:00.000Z" itemprop="datePublished">2018-06-15</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/06/13/tokenguiling/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/img/201801151.png)" alt="权限控制不当造成的token归零风险分析" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/智能合约/">智能合约</a></p>
+                            <p class="item-title"><a href="/2018/06/13/tokenguiling/" class="title">权限控制不当造成的token归零风险分析</a></p>
+                            <p class="item-date"><time datetime="2018-06-13T07:00:00.000Z" itemprop="datePublished">2018-06-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/06/12/yitaifang/" class="thumbnail">
+    
+    
+        <span style="background-image:url(/img/201801161.jpg)" alt="以太坊最新骗局，蜜罐合约让你有进无出！" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/蜜罐合约/">蜜罐合约</a></p>
+                            <p class="item-title"><a href="/2018/06/12/yitaifang/" class="title">以太坊最新骗局，蜜罐合约让你有进无出！</a></p>
+                            <p class="item-date"><time datetime="2018-06-12T07:00:00.000Z" itemprop="datePublished">2018-06-12</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">categories</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/合约漏洞/">合约漏洞</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/智能合约/">智能合约</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/蜜罐合约/">蜜罐合约</a><span class="category-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a><span class="archive-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/合约漏洞/">合约漏洞</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/智能合约/">智能合约</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/蜜罐合约/">蜜罐合约</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/合约漏洞/" style="font-size: 10px;">合约漏洞</a> <a href="/tags/智能合约/" style="font-size: 10px;">智能合约</a> <a href="/tags/蜜罐合约/" style="font-size: 10px;">蜜罐合约</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://hexo.io">Hexo</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fas fa-angle-up"></div>
+</aside>
+
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2018 BCST<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_config = function () {
+        
+            this.page.url = 'http://www.bcst.com/2018/06/15/qukuailheyue/';
+        
+        this.page.identifier = 'qukuailheyue';
+    };
+    (function() { 
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'hexo-theme-icaru' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
